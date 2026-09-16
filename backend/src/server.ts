@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { connectDatabase } from "./config/database.js";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.routes.js";
 import dotenv from "dotenv";
 
 
@@ -21,7 +22,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser())
 app.use("/api/auth", authRoutes);
-
+app.use("/api/users", userRoutes);
 app.get("/", (_req, res) => {
   res.json({
     message: "MovieHub API is running",
