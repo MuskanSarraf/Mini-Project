@@ -45,3 +45,7 @@ export const getCurrentUser = async (): Promise<MeResponse> => {
 
   return response.data;
 };
+
+export const logout = async (): Promise<void> => {
+  await api.post("/auth/logout");
+};
