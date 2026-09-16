@@ -130,3 +130,14 @@ export const login = async (
     });
   }
 };
+
+export const logout = (
+  _req: Request,
+  res: Response
+): void => {
+  res.clearCookie("token");
+
+  res.status(200).json({
+    message: "Logout successful",
+  });
+};
