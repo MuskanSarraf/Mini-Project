@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { connectDatabase } from "./config/database.js";
 import dotenv from "dotenv";
 
 
@@ -28,5 +29,6 @@ app.get("/", (_req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
+    connectDatabase()
   console.log(`Server running on http://localhost:${PORT}`);
 });
