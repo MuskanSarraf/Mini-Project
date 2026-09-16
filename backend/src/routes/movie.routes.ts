@@ -8,6 +8,7 @@ import {
 import {
     authorize,
 } from "../middleware/role.middleware.js";
+import upload from "../config/multer.js"
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.post(
     "/",
     authenticate,
     authorize("admin"),
+    upload.single("banner"),
     createMovie
 );
 
