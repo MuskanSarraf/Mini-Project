@@ -1,9 +1,39 @@
+import { Link } from "react-router-dom";
 
+import type { Movie } from "../types/movie.types";
 
-const MovieDetailsPage = () => {
-  return (
-    <div>MovieDetailsPage</div>
-  )
+interface MovieCardProps {
+  movie: Movie;
 }
 
-export default MovieDetailsPage
+const MovieCard = ({ movie }: MovieCardProps) => {
+  return (
+    <article>
+      <img
+        src={movie.banner.url}
+        alt={movie.title}
+        width="250"
+      />
+
+      <h2>{movie.title}</h2>
+
+      <p>
+        {movie.genre.join(" • ")}
+      </p>
+
+      <p>
+        ⭐ {movie.rating}/10
+      </p>
+
+      <p>
+        {movie.language} • {movie.duration} min
+      </p>
+
+      <Link to={`/movies/${movie._id}`}>
+        View Details
+      </Link>
+    </article>
+  );
+};
+
+export default MovieCard;
