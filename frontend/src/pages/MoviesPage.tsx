@@ -4,9 +4,18 @@ import { getMovies } from "../services/movie.service";
 
 import type { Movie } from "../types/movie.types";
 
+import MovieCard from "../components/MovieCard";
+
 const MoviesPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+
+  const [search, setSearch] = useState("");
+
+  const [selectedGenre, setSelectedGenre] =
+    useState("All");
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -27,6 +36,26 @@ const MoviesPage = () => {
     fetchMovies();
   }, []);
 
+  const genres = [
+    "All",
+    ...new Set(
+      movies.flatMap((movie) => movie.genre)
+    ),
+  ];
+
+  const filteredMovies = movies.filter((movie) => {
+    const matchesSearch =
+      movie.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    const matchesGenre =
+      selectedGenre === "All" ||
+      movie.genre.includes(selectedGenre);
+
+    return matchesSearch && matchesGenre;
+  });
+
   if (loading) {
     return <h2>Loading movies...</h2>;
   }
@@ -39,21 +68,45 @@ const MoviesPage = () => {
     <div>
       <h1>Movies</h1>
 
-      {movies.map((movie) => (
-        <div key={movie._id}>
-          <h2>{movie.title}</h2>
+      <div>
+        <input
+          type="text"
+          placeholder="Search movies..."
+          value={search}
+          onChange={(event) =>
+            setSearch(event.target.value)
+          }
+        />
 
-          <img
-            src={movie.banner.url}
-            alt={movie.title}
-            width="200"
+        <select
+          value={selectedGenre}
+          onChange={(event) =>
+            setSelectedGenre(event.target.value)
+          }
+        >
+          {genres.map((genre) => (
+            <option
+              key={genre}
+              value={genre}
+            >
+              {genre}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        {filteredMovies.map((movie) => (
+          <MovieCard
+            key={movie._id}
+            movie={movie}
           />
+        ))}
+      </div>
 
-          <p>{movie.description}</p>
-
-          <p>Rating: {movie.rating}/10</p>
-        </div>
-      ))}
+      {filteredMovies.length === 0 && (
+        <p>No movies found.</p>
+      )}
     </div>
   );
 };
