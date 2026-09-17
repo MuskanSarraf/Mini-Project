@@ -8,23 +8,33 @@ interface MovieCardProps {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
   return (
-    <div>
+    <article className="movie-card">
       <img
         src={movie.banner.url}
         alt={movie.title}
-        width="250"
       />
 
-      <h2>{movie.title}</h2>
+      <div>
+        <h2>{movie.title}</h2>
 
-      <p>{movie.rating}/10</p>
+        <p>
+          {movie.genre.join(" • ")}
+        </p>
 
-      <p>{movie.genre.join(", ")}</p>
+        <p>
+          ⭐ {movie.rating}/10
+        </p>
 
-      <Link to={`/movies/${movie._id}`}>
-        View Details
-      </Link>
-    </div>
+        <p>
+          {movie.language} •{" "}
+          {movie.duration} min
+        </p>
+
+        <Link to={`/movies/${movie._id}`}>
+          View Details
+        </Link>
+      </div>
+    </article>
   );
 };
 

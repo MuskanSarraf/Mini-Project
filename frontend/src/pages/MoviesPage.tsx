@@ -95,7 +95,7 @@ const MoviesPage = () => {
         </select>
       </div>
 
-      <div>
+      <div className="movie-grid">
         {filteredMovies.map((movie) => (
           <MovieCard
             key={movie._id}
