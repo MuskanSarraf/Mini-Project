@@ -1,4 +1,5 @@
 import api from "./api";
+
 import type {
   MoviesResponse,
   MovieResponse,
@@ -20,4 +21,10 @@ export const getMovieById = async (
   );
 
   return response.data;
+};
+
+export const deleteMovie = async (
+  id: string
+): Promise<void> => {
+  await api.delete(`/movies/${id}`);
 };
