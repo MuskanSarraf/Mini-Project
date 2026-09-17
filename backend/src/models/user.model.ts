@@ -28,6 +28,10 @@ const userSchema = new Schema<IUser>(
       enum: ["user", "admin"],
       default: "user",
     },
+    watchlist: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
