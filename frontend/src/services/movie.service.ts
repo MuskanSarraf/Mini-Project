@@ -39,3 +39,14 @@ export const createMovie = async (
 
   return response.data;
 };
+export const updateMovie = async (
+  id: string,
+  formData: FormData
+): Promise<MovieResponse> => {
+  const response = await api.put<MovieResponse>(
+    `/movies/${id}`,
+    formData
+  );
+
+  return response.data;
+};
