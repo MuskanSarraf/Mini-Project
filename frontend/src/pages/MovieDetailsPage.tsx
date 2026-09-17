@@ -6,6 +6,7 @@ import { getMovieById } from "../services/movie.service";
 import {
   addToWatchlist,
   removeFromWatchlist,
+  getWatchlist,
 } from "../services/user.service";
 
 import type { Movie } from "../types/movie.types";
@@ -26,7 +27,7 @@ const MovieDetailsPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchMovie = async () => {
+    const fetchMovieData = async () => {
       if (!id) {
         setError("Movie ID is missing");
         setLoading(false);
@@ -34,9 +35,18 @@ const MovieDetailsPage = () => {
       }
 
       try {
-        const data = await getMovieById(id);
+        const movieData = await getMovieById(id);
 
-        setMovie(data.movie);
+        setMovie(movieData.movie);
+
+        const watchlistData = await getWatchlist();
+
+        const alreadyAdded =
+          watchlistData.movies.some(
+            (movie) => movie._id === id
+          );
+
+        setIsInWatchlist(alreadyAdded);
       } catch (error) {
         console.error(error);
 
@@ -46,7 +56,7 @@ const MovieDetailsPage = () => {
       }
     };
 
-    fetchMovie();
+    fetchMovieData();
   }, [id]);
 
   const handleWatchlist = async () => {
