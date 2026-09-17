@@ -12,19 +12,21 @@ import MovieDetailsPage from "./pages/MovieDetailsPage";
 import WatchlistPage from "./pages/WatchlistPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import Navbar from "./components/Navbar";
+import EditMoviePage from "./pages/EditMoviePage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <BrowserRouter>
-    <Navbar/>
+      <Navbar />
       <Routes>
 
         <Route
           path="/"
           element={<HomePage />}
         />
+
 
         <Route
           path="/login"
@@ -41,6 +43,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <MoviesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit/:id"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <EditMoviePage />
             </ProtectedRoute>
           }
         />

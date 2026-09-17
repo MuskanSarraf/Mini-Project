@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AddMovieForm from "../components/AddMovieForm";
+import { Link } from "react-router-dom";
 
 import {
   getMovies,
@@ -77,10 +78,10 @@ const AdminDashboardPage = () => {
       <h1>Admin Dashboard</h1>
 
       <AddMovieForm
-      onMovieCreated={() => {
-        window.location.reload();
-      }}
-    />
+        onMovieCreated={() => {
+          window.location.reload();
+        }}
+      />
 
       <p>
         Total Movies: {movies.length}
@@ -109,6 +110,10 @@ const AdminDashboardPage = () => {
               {movie.language} •{" "}
               {movie.duration} min
             </p>
+
+            <Link to={`/admin/edit/${movie._id}`}>
+              Edit
+            </Link>
 
             <button
               onClick={() =>
