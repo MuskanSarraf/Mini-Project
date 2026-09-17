@@ -28,3 +28,14 @@ export const deleteMovie = async (
 ): Promise<void> => {
   await api.delete(`/movies/${id}`);
 };
+
+export const createMovie = async (
+  formData: FormData
+): Promise<MovieResponse> => {
+  const response = await api.post<MovieResponse>(
+    "/movies",
+    formData
+  );
+
+  return response.data;
+};
