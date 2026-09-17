@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AddMovieForm from "../components/AddMovieForm";
 
 import {
   getMovies,
@@ -74,6 +75,12 @@ const AdminDashboardPage = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
+
+      <AddMovieForm
+      onMovieCreated={() => {
+        window.location.reload();
+      }}
+    />
 
       <p>
         Total Movies: {movies.length}
