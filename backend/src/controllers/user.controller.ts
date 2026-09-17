@@ -17,7 +17,7 @@ export const addToWatchlist = async (
       return;
     }
 
-    const { movieId }  = req.params;
+    const { movieId } = req.params;
 
     const movie = await Movie.findById(movieId);
 
@@ -37,7 +37,7 @@ export const addToWatchlist = async (
       return;
     }
 
-    if(movieId === undefined) {
+    if (movieId === undefined) {
       res.status(400).json({
         message: "Movie ID is required",
       });
@@ -93,6 +93,29 @@ export const removeFromWatchlist = async (
     if (!user) {
       res.status(404).json({
         message: "User not found",
+      });
+      return;
+    }
+
+    if (movieId === undefined) {
+      res.status(400).json({
+        message: "Movie ID is required",
+      });
+      return;
+    }
+    if (Array.isArray(movieId)) {
+      res.status(400).json({
+        message: "Invalid movie ID",
+      });
+      return;
+    }
+    
+    const isInWatchlist =
+      user.watchlist.includes(movieId);
+
+    if (!isInWatchlist) {
+      res.status(400).json({
+        message: "Movie is not in watchlist",
       });
       return;
     }
