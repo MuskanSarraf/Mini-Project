@@ -40,7 +40,7 @@ const WatchlistPage = () => {
   }
 
   return (
-    <div>
+    <div > 
       <h1>My Watchlist</h1>
 
       {movies.length === 0 ? (
@@ -48,7 +48,7 @@ const WatchlistPage = () => {
           Your watchlist is empty.
         </p>
       ) : (
-        <div>
+        <div className="movie-grid">
           {movies.map((movie) => (
             <MovieCard
               key={movie._id}
