@@ -87,7 +87,7 @@ const AdminDashboardPage = () => {
         Total Movies: {movies.length}
       </p>
 
-      <div>
+      <div className="movie-grid">
         {movies.map((movie) => (
           <article key={movie._id}>
             <img
